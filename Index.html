@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fãs do Cristiano Ronaldo | CR7</title>
+
+<meta name="description"
+content="Site para fãs do Cristiano Ronaldo. Dê seu SIII!, participe do contador e faça parte da comunidade de fãs do CR7.">
+
+<meta name="keywords"
+content="Cristiano Ronaldo, CR7, fãs do Cristiano Ronaldo, fãs do CR7, SIII, futebol">
+
+<meta name="robots" content="index, follow">
+
+<meta name="author" content="Fãs do Cristiano Ronaldo">
+
+<meta property="og:title" content="Fãs do Cristiano Ronaldo | CR7">
+
+<meta property="og:description"
+content="Um lugar para fãs do Cristiano Ronaldo. Dê seu SIII! 🔥">
+
+<meta property="og:type" content="website">
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #444 0%, #181818 45%, #080808 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(24, 24, 24, 0.97);
+    border-radius: 25px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 0 35px rgba(0,0,0,0.7);
+}
+
+h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.cr7-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 20px;
+}
+
+.counter {
+    font-size: 52px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.counter-label {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.siii {
+    background: white;
+    color: #111;
+}
+
+.siii:hover {
+    transform: scale(1.04);
+}
+
+.siii:active {
+    transform: scale(0.97);
+}
+
+.apoie {
+    background: #e50914;
+    color: white;
+}
+
+.apoie:hover {
+    background: #ff1f2b;
+    transform: scale(1.04);
+}
+
+.status {
+    margin-top: 15px;
+    color: #aaa;
+    min-height: 20px;
+}
+
+.about {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #bbb;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.about h2 {
+    color: white;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1 id="titulo">
+        ⚽ FÃS DO CRISTIANO RONALDO
+    </h1>
+
+    <p class="subtitle" id="subtitulo">
+        Mostre que você é fã do homem do SIII! 🔥
+    </p>
+
+
+    <img
+        class="cr7-image"
+        src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg"
+        alt="Cristiano Ronaldo - CR7"
+    >
+
+
+    <div class="counter" id="contador">
+        0
+    </div>
+
+    <div class="counter-label" id="contadorLabel">
+        fãs deram SIII! 🔥
+    </div>
+
+
+    <button
+        class="siii"
+        id="siiiButton"
+        onclick="darSiii()">
+
+        🔥 SIII!
+
+    </button>
+
+
+    <button
+        class="apoie"
+        id="apoieButton"
+        onclick="apoiarCriador()">
+
+        ❤️ Apoie o criador
+
+    </button>
+
+
+    <div class="status" id="status"></div>
+
+
+    <section class="about">
+
+        <h2 id="sobreTitulo">
+            Fãs do Cristiano Ronaldo
+        </h2>
+
+        <p id="descricao">
+
+            Um site criado para fãs de Cristiano Ronaldo.
+            Aqui você pode deixar seu SIII! e participar
+            do contador de fãs do CR7. ⚽🔥
+
+        </p>
+
+    </section>
+
+
+    <div class="footer">
+        ⚽ Comunidade de fãs do CR7
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =====================================
+   CONEXÃO COM SUPABASE
+===================================== */
+
+const SUPABASE_URL =
+    "https://zewmfdbtztjobxwugxxp.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_BTFTDuwS6H06gMjp_uF6Yw_8Kgg-gC9";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================
+   ELEMENTOS
+===================================== */
+
+const contadorElemento =
+    document.getElementById("contador");
+
+const botao =
+    document.getElementById("siiiButton");
+
+const status =
+    document.getElementById("status");
+
+
+/* =====================================
+   VERIFICAR SE JÁ VOTOU
+===================================== */
+
+let jaVotou =
+    localStorage.getItem("jaDeuSiii") === "true";
+
+
+function atualizarBotao() {
+
+    if (jaVotou) {
+
+        botao.textContent =
+            "✅ Você já deu SIII!";
+
+        botao.disabled = true;
+
+        botao.style.opacity = "0.6";
+
+    }
+
+}
+
+
+/* =====================================
+   PEGAR CONTADOR DO SUPABASE
+===================================== */
+
+async function carregarContador() {
+
+    const { data, error } =
+        await supabaseClient
+        .from("siii")
+        .select("total")
+        .eq("id", 1)
+        .single();
+
+
+    if (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Erro ao carregar o contador.";
+
+        return;
+    }
+
+
+    contadorElemento.textContent =
+        data.total;
+
+}
+
+
+/* =====================================
+   DAR SIII
+===================================== */
+
+async function darSiii() {
+
+    if (jaVotou) {
+        return;
+    }
+
+
+    botao.disabled = true;
+
+    status.textContent =
+        "Enviando seu SIII... 🔥";
+
+
+    const { error } =
+        await supabaseClient.rpc(
+            "incrementar_siii"
+        );
+
+
+    if (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Não foi possível registrar seu SIII.";
+
+        botao.disabled = false;
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "jaDeuSiii",
+        "true"
+    );
+
+    jaVotou = true;
+
+
+    status.textContent =
+        "SIII! 🔥 Você faz parte da comunidade!";
+
+
+    atualizarBotao();
+
+    carregarContador();
+
+}
+
+
+/* =====================================
+   BOTÃO APOIAR CRIADOR
+===================================== */
+
+function apoiarCriador() {
+
+    const link =
+        "https://doge05508-source.github.io/Meu-monster/";
+
+    window.open(link, "_blank");
+
+}
+
+
+/* =====================================
+   IDIOMAS
+===================================== */
+
+const idiomas = {
+
+    pt: {
+
+        titulo:
+            "⚽ FÃS DO CRISTIANO RONALDO",
+
+        subtitulo:
+            "Mostre que você é fã do homem do SIII! 🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "fãs deram SIII! 🔥",
+
+        apoio:
+            "❤️ Apoie o criador",
+
+        sobre:
+            "Fãs do Cristiano Ronaldo",
+
+        descricao:
+            "Um site criado para fãs de Cristiano Ronaldo. Aqui você pode deixar seu SIII! e participar do contador de fãs do CR7. ⚽🔥"
+    },
+
+
+    en: {
+
+        titulo:
+            "⚽ CRISTIANO RONALDO FANS",
+
+        subtitulo:
+            "Show that you're a fan of the SIII! man! 🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "fans said SIII! 🔥",
+
+        apoio:
+            "❤️ Support the creator",
+
+        sobre:
+            "Cristiano Ronaldo Fans",
+
+        descricao:
+            "A website created for Cristiano Ronaldo fans. Leave your SIII! and join the CR7 fan counter. ⚽🔥"
+    },
+
+
+    es: {
+
+        titulo:
+            "⚽ FANS DE CRISTIANO RONALDO",
+
+        subtitulo:
+            "¡Demuestra que eres fan del hombre del SIII! 🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "fans dijeron SIII! 🔥",
+
+        apoio:
+            "❤️ Apoya al creador",
+
+        sobre:
+            "Fans de Cristiano Ronaldo",
+
+        descricao:
+            "Un sitio creado para los fans de Cristiano Ronaldo. ¡Deja tu SIII! y participa en el contador de fans del CR7. ⚽🔥"
+    },
+
+
+    fr: {
+
+        titulo:
+            "⚽ FANS DE CRISTIANO RONALDO",
+
+        subtitulo:
+            "Montrez que vous êtes fan de l'homme du SIII ! 🔥",
+
+        botao:
+            "🔥 SIII !",
+
+        contador:
+            "fans ont dit SIII ! 🔥",
+
+        apoio:
+            "❤️ Soutenir le créateur",
+
+        sobre:
+            "Fans de Cristiano Ronaldo",
+
+        descricao:
+            "Un site créé pour les fans de Cristiano Ronaldo. Dites SIII ! et participez au compteur des fans du CR7. ⚽🔥"
+    },
+
+
+    de: {
+
+        titulo:
+            "⚽ CRISTIANO RONALDO FANS",
+
+        subtitulo:
+            "Zeige, dass du ein Fan des SIII!-Mannes bist! 🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "Fans haben SIII! gesagt 🔥",
+
+        apoio:
+            "❤️ Unterstütze den Ersteller",
+
+        sobre:
+            "Cristiano Ronaldo Fans",
+
+        descricao:
+            "Eine Website für Fans von Cristiano Ronaldo."
+    },
+
+
+    it: {
+
+        titulo:
+            "⚽ FAN DI CRISTIANO RONALDO",
+
+        subtitulo:
+            "Dimostra di essere un fan dell'uomo del SIII! 🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "fan hanno detto SIII! 🔥",
+
+        apoio:
+            "❤️ Supporta il creatore",
+
+        sobre:
+            "Fan di Cristiano Ronaldo",
+
+        descricao:
+            "Un sito creato per i fan di Cristiano Ronaldo."
+    },
+
+
+    ja: {
+
+        titulo:
+            "⚽ クリスティアーノ・ロナウドのファン",
+
+        subtitulo:
+            "SIII!の男への応援を見せよう！🔥",
+
+        botao:
+            "🔥 SIII!",
+
+        contador:
+            "人のファンがSIII!と言いました 🔥",
+
+        apoio:
+            "❤️ クリエイターを応援",
+
+        sobre:
+            "クリスティアーノ・ロナウドのファン",
+
+        descricao:
+            "クリスティアーノ・ロナウドのファンのためのサイトです。"
+    }
+
+};
+
+
+/* =====================================
+   DETECTAR IDIOMA
+===================================== */
+
+let idioma =
+    navigator.language.substring(0, 2);
+
+
+if (!idiomas[idioma]) {
+    idioma = "en";
+}
+
+
+const texto =
+    idiomas[idioma];
+
+
+/* =====================================
+   APLICAR TRADUÇÃO
+===================================== */
+
+document.getElementById("titulo").textContent =
+    texto.titulo;
+
+document.getElementById("subtitulo").textContent =
+    texto.subtitulo;
+
+document.getElementById("siiiButton").textContent =
+    texto.botao;
+
+document.getElementById("contadorLabel").textContent =
+    texto.contador;
+
+document.getElementById("apoieButton").textContent =
+    texto.apoio;
+
+document.getElementById("sobreTitulo").textContent =
+    texto.sobre;
+
+document.getElementById("descricao").textContent =
+    texto.descricao;
+
+
+/* =====================================
+   INICIAR
+===================================== */
+
+atualizarBotao();
+
+carregarContador();
+
+</script>
+
+</body>
+
+</html>
